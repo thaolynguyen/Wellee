@@ -61,11 +61,17 @@ col3.metric("Scéance ce mois-ci", "11", "4%")
 with st.expander("Sommeil", expanded=True):
 
     st.info("Tu peux renseigner la durée de ton sommeil chaque jour pour pourvoir suivre l'évolution de celui-ci au cours du temps.")
-    chart_data = pd.DataFrame(
-        np.random.randn(31, 1),
-        columns=['Nombre d\'heures'])
+    
+    df = pd.DataFrame({
 
-    st.line_chart(chart_data)
+            'date': ['01/07/2023','02/07/2023', '03/07/2023', '04/07/2023','05/07/2023','06/07/2023','07/07/2023'],
+             'Nombre d\heures': [10, 7, 8, 10, 5, 7, 10]
+            })
+
+    
+
+    st.line_chart(df.rename(columns={'date':'index'}).set_index('index'))
+
     if st.button("Ajouter une entrée"):
         # Forms can be declared using the 'with' syntax
         with st.form(key='my_form'):
@@ -82,11 +88,13 @@ with st.expander("Sommeil", expanded=True):
 
 with st.expander("Scéances", expanded=True):
     st.info("Garde l'historique de tes scéances d'hypnoses")
+    df2 = pd.DataFrame({
+            'date': ['01/07/2023','02/07/2023', '03/07/2023', '04/07/2023','05/07/2023','06/07/2023','07/07/2023'],
+             'Nombre de scéances': [1,1,3,2,1,0,0]
+            })
+
+    
+
+    st.bar_chart(df2.rename(columns={'date':'index'}).set_index('index'))
 
 
-    chart_data = pd.DataFrame(
-        np.random.randn(20, 1),
-        columns=["Scéances"])
-
-    st.bar_chart(chart_data)
-   

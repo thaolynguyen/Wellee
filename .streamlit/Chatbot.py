@@ -19,6 +19,14 @@ openai.api_key = openai_key
 
 model = "gpt-3.5-turbo"
 st.markdown(f'<h1 style="color:#4b2a59;">{"💬 Discute avec Wellee"}</h1>', unsafe_allow_html=True)
+st.markdown("""
+<style>
+    [data-testid=stSidebar] {
+        background: rgba(204, 204, 255, 0.3);
+        
+    }
+</style>
+""", unsafe_allow_html=True)
 
 st.caption("Découvrez Wellee, votre assistant dédié à l'amélioration de votre sommeil. Grâce à des échanges réguliers avec lui, il va acquérir une connaissance approfondie de votre personne, vous permettant ainsi de bénéficier de scripts personnalisés adaptés à votre profil, dans le but d\'améliorer la qualité de votre sommeil.")
 
