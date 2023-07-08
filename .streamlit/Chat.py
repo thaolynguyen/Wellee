@@ -1,8 +1,6 @@
 import openai
 import streamlit as st
 from streamlit_chat import message
-from streamlit_option_menu import option_menu
-
 from gtts import gTTS
 from io import BytesIO
 
