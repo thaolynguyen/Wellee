@@ -1,13 +1,6 @@
 import openai
 import streamlit as st
 import functions
-
-
-
-
-
-
-
 import io
 from PIL import Image
 import base64
@@ -15,31 +8,8 @@ import base64
 # Setting page title and header
 st.set_page_config(page_title="WELLEE", page_icon=":robot_face:")
 
-file = Image.open('ressources/logo.png')
-#file = open("logo.png", "rb")
-contents = file.read()
-img_str = base64.b64encode(contents).decode("utf-8")
-buffer = io.BytesIO()
-file.close()
-img_data = base64.b64decode(img_str)
-img = Image.open(io.BytesIO(img_data))
-resized_img = img.resize((150, 60))  # x, y
-img.save(buffer, format="PNG")
-img_b64 = base64.b64encode(buffer.getvalue()).decode("utf-8")
 
-st.markdown(
-        f"""
-        <style>
-            [data-testid="stSidebarNav"] {{
-                background-image: url('data:image/png;base64,{img_b64}');
-                background-repeat: no-repeat;
-                padding-top: 50px;
-                background-position: 50px 10px;
-            }}
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+
 
 
 with st.sidebar:
@@ -48,8 +18,8 @@ with st.sidebar:
 openai.api_key = openai_key
 
 model = "gpt-3.5-turbo"
+st.markdown(f'<h1 style="color:#4b2a59;">{"💬 Discute avec Wellee"}</h1>', unsafe_allow_html=True)
 
-st.title("💬 Discute avec Wellee")
 st.caption("Découvrez Wellee, votre assistant dédié à l'amélioration de votre sommeil. Grâce à des échanges réguliers avec lui, il va acquérir une connaissance approfondie de votre personne, vous permettant ainsi de bénéficier de scripts personnalisés adaptés à votre profil, dans le but d\'améliorer la qualité de votre sommeil.")
 
 content = "Tu es Wellee un assistant personnel dédié à l'amélioration de votre sommeil. En tant que tel, je suis là pour vous guider et vous soutenir dans votre quête d'un sommeil de meilleure qualité.\
