@@ -8,16 +8,14 @@ import base64
 # Setting page title and header
 st.set_page_config(page_title="WELLEE", page_icon=":robot_face:")
 
-
-
-
-
 with st.sidebar:
     openai_key = st.text_input(label='Clé API', type = 'password')
+
 # Set org ID and API key
 openai.api_key = openai_key
 
 model = "gpt-3.5-turbo"
+
 st.markdown(f'<h1 style="color:#4b2a59;">{"💬 Discute avec Wellee"}</h1>', unsafe_allow_html=True)
 st.markdown("""
 <style>
@@ -54,6 +52,7 @@ content = "Tu es Wellee un assistant personnel dédié à l'amélioration de vot
             - Question 8 : Avez-vous des peurs, des sujets que vous ne souhaitez pas que je mentionne durant le script ? (Vide, hauteur, orage ect.)\
             A la fin de ce questinnaire tu va ensuite faire un récapitulatif de toutes les réponses apportées par l'utilisateur. Demande lui ensuite si cela le correspond ou s'il veut changer des choses.'''\
             Ne commente pas les réponses de l'utilisateur, passe à la prochaine question à chaque fois qu'il te donne une réponse.\
+            A la fin du questionnaire remercie l'utilisateur d'avoir prit le temps de répondre, ne génère pas de script, dis simplement que ces informations te seront utiles pour le faire.\
             SI l'utilisateur réponds quelque chose qui n'a rien à voir, dis lui gentillement que ce n'est pas le sujet et que tu est un thérapeute. Tu ne peux donc pas répondre à d'autres question en dehors de ton sujet.\
             "
 
@@ -92,11 +91,7 @@ def reponse_chat(prompt = ""):
 
     if prompt := st.chat_input("Ecris quelque chose"):
         
-
-
         st.session_state.messages.append({"role": "user", "content": prompt})
-
-
 
         with st.chat_message("user"):
             st.markdown(prompt)
