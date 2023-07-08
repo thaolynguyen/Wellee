@@ -87,54 +87,67 @@ def generate_response(prompt):
     completion_tokens = completion.usage.completion_tokens
     return response, total_tokens, prompt_tokens, completion_tokens
 
-clear_button = st.button("Effacer la conversation", key="clear")
+
+def reponse_chat(prompt = ""):
+
+    if prompt := st.chat_input("Ecris quelque chose"):
+        
+
+
+        st.session_state.messages.append({"role": "user", "content": prompt})
+
+
+
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+        with st.chat_message("assistant"):
+            message_placeholder = st.empty()
+            full_response = ""
+            for response in openai.ChatCompletion.create(
+                model=st.session_state["openai_model"],
+                messages=[
+                    {"role": m["role"], "content": m["content"]}
+                    for m in st.session_state.messages
+                ],
+                stream=True,
+            ):
+                full_response += response.choices[0].delta.get("content", "")
+                message_placeholder.markdown(full_response + "▌")
+            message_placeholder.markdown(full_response)
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
+
+col1,col2,col3 = st.columns(3)
+
+with col1:
+    clear_button = st.button("🗑️ Effacer la conversation", key="clear")
+with col2:
+    hello_button = st.button("👋 Dis bonjour")
+
+
 if clear_button:
     st.session_state['generated'] = []
     st.session_state['past'] = []
     st.session_state.messages = [
-                {"role": "system", "content": content}
-            ]
-    
-cpt = 0
-
-for message in st.session_state.messages:
-    if cpt !=0:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
-    cpt +=1
+                {"role": "system", "content": content}]
+            
 
 
 
 
 
+with st.container():
+    cpt = 0
 
-if prompt := st.chat_input("Ecris quelque chose"):
-    
+    for message in st.session_state.messages:
+        if cpt !=0:
+            with st.chat_message(message["role"]):
+                st.markdown(message["content"])
+        cpt +=1
 
 
-    st.session_state.messages.append({"role": "user", "content": prompt})
 
-
-
-    with st.chat_message("user"):
-        st.markdown(prompt)
-
-    with st.chat_message("assistant"):
-        message_placeholder = st.empty()
-        full_response = ""
-        for response in openai.ChatCompletion.create(
-            model=st.session_state["openai_model"],
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-        ):
-            full_response += response.choices[0].delta.get("content", "")
-            message_placeholder.markdown(full_response + "▌")
-        message_placeholder.markdown(full_response)
-    st.session_state.messages.append({"role": "assistant", "content": full_response})
-
+reponse_chat()
 
 
 
