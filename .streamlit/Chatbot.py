@@ -10,7 +10,6 @@ st.markdown("<h1 style='text-align: center;'>Wellee Chatbot 👩‍⚕️ </h1>"
  
 st.title("💬 Chat with Wellee")
 
-openai.api_key = "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"
 
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-3.5-turbo"
