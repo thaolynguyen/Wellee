@@ -15,8 +15,8 @@ import base64
 # Setting page title and header
 st.set_page_config(page_title="WELLEE", page_icon=":robot_face:")
 
-
-file = open("logo.png", "rb")
+file = Image.open('ressources/logo.png')
+#file = open("logo.png", "rb")
 contents = file.read()
 img_str = base64.b64encode(contents).decode("utf-8")
 buffer = io.BytesIO()
